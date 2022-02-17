@@ -1,0 +1,19 @@
+{
+  "name": "sistema_estoque_back_espelho",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/argerioqsf/sistema_estoque_back_espelho.git",
+  "scripts": {
+    "start": "nodemon ./app.js localhost 3000"
+  },
+  "author": "Argério Queiroz da Silva Filho <argerioaf@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.1",
+    "nodemon": "^2.0.15"
+  }
+}

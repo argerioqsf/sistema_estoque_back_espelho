@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  server:
+    container_name: SISTEMA_ESTOQUE
+    volumes:
+      - ./:/node-app
+      - /node-app/node_modules
+    environment:
+      NODE_ENV: development
+    env_file:
+        ".env"
+    build: '.'
+    depends_on:
+      - mongo
+    links:
+      - mongo
+    ports:
+      - '3333:3333'
+    networks:
+    - mongo-compose-network
+
+  mongo:
+    image: mongo
+    restart: always
+    container_name: MONGODB_SISTEMA_ESTOQUE
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongodb_data_container:/data/db
+    networks:
+      - mongo-compose-network
+      
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    networks:
+    - mongo-compose-network
+
+networks: 
+  mongo-compose-network:
+    driver: bridge
+volumes:
+  mongodb_data_container:
