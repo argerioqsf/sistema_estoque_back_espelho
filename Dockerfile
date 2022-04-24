@@ -6,6 +6,7 @@ COPY ["package.json", "package-lock.json", "./"]
 
 RUN ls
 
+# Comentar abaixo para modo developer
 RUN npm install --production
 
 # Descomente abaixo para modo developer

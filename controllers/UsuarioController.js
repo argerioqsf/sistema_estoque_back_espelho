@@ -8,6 +8,21 @@ async function listar (req,res){
     return res.status(200).json(usuarios)
 }
 
+async function listar_info_token (req,res){
+    try {
+        const id = req.userId;
+        const usuario = await Usuario.findById(id,['-senha','-token_auth']).populate('permissoes');
+        if (usuario) {
+            return res.status(200).json({user:usuario})
+        }
+        else{
+            return res.status(404).json({message:"usuario nã oencontrado"})
+        }
+    } catch (error) {
+        return res.status(500).json({message:'Ocorreu um erro inesperado no servidor, tente novamente mais tarde!',descricao:error.message})
+    }
+}
+
 async function listar_info (req,res){
     const { id } = req.params;
     try {
@@ -145,8 +160,8 @@ async function login (req,res){
         //salvar token na cadastro do usuario
         usuario.token_auth = token;
         await usuario.save();
-
-        return res.status(200).json({message:"Usuário autenticado com sucesso!",token})
+        usuario.senha == null;
+        return res.status(200).json({message:"Usuário autenticado com sucesso!",token,user:usuario})
         
     } catch (error) {
         return res.status(500).json({message:'Ocorreu um erro inesperado no servidor, tente novamente mais tarde!',descricao:error.message})
@@ -180,5 +195,6 @@ module.exports = {
     login:       login,
     editar:      editar,
     listar_info: listar_info,
-    deletar:     deletar
+    deletar:     deletar,
+    listar_info_token: listar_info_token
 }
