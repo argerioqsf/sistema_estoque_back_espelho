@@ -82,7 +82,7 @@ async function cadastrar (req,res){
     })
 
     try {
-        await usuario.save()
+        await usuario.save();
         return res.status(201).json({message:'Usuário criado com sucesso!'})
     } catch (error) {
         return res.status(500).json({message:'Ocorreu um erro inesperado no servidor, tente novamente mais tarde!',descricao:error.message})
@@ -144,7 +144,7 @@ async function login (req,res){
     const checarSenha = await bcrypt.compare(senha, usuario.senha)
 
     if (!checarSenha) {
-        return res.status(422).json({message:"Senha inválida!",senha})
+        return res.status(422).json({message:"Senha inválida!"})
     }
 
     try {
@@ -160,7 +160,7 @@ async function login (req,res){
         //salvar token na cadastro do usuario
         usuario.token_auth = token;
         await usuario.save();
-        usuario.senha == null;
+        usuario.senha = null;
         return res.status(200).json({message:"Usuário autenticado com sucesso!",token,user:usuario})
         
     } catch (error) {
